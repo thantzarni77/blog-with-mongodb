@@ -1,0 +1,20 @@
+<%- include("./includes/Header")%>
+<section class="homePageContainer">
+  <h1>Home Page</h1>
+  <p>
+    Lorem ipsum dolor sit amet consectetur, adipisicing elit. Sapiente odit a
+    culpa, ad labore modi quibusdam quasi inventore libero minima, fugit
+    repellat blanditiis animi maxime iure autem eum distinctio alias.
+  </p>
+  <button><a href="/admin/create-post">Add Post</a></button>
+  <hr />
+  <h1>Posts</h1>
+  <% if(posts.length === 0) {%>
+  <div>Nothing Here!! Click add Post button above to create a new Post</div>
+  <%}%> <% for (let post of posts) {%>
+  <div class="postContainer">
+    <div><%=post.title%></div>
+    <a href="post/<%= post.id %>"><button>See More</button></a>
+  </div>
+  <%}%> <%- include("./includes/Footer")%>
+</section>

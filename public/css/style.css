@@ -1,0 +1,163 @@
+.homePageContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 80%;
+  margin: 10px auto;
+}
+
+.homePageContainer button {
+  align-self: flex-end;
+  margin: 10px;
+  padding: 10px 10px;
+  background-color: #020202;
+  border: none;
+  outline: none;
+  color: #fefefe;
+  border-radius: 5px;
+}
+
+.addPost {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.addPost h1 {
+  font-size: 1.3rem;
+}
+
+.form {
+  width: 80%;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+}
+
+.formInput label {
+  font-size: 0.9rem;
+}
+
+.formInput {
+  display: flex;
+  flex-direction: column;
+  margin: 10px;
+  gap: 10px;
+}
+
+input,
+textarea {
+  padding: 5px 10px;
+}
+
+input:focus,
+textarea:focus {
+  outline: none;
+}
+
+.description {
+  padding: 40px 10px;
+}
+
+form button {
+  margin: 10px;
+  padding: 10px 10px;
+  background-color: #020202;
+  border: none;
+  outline: none;
+  color: #fefefe;
+  border-radius: 5px;
+}
+
+.titleContainer {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  width: 100%;
+}
+
+.titleContainer > button {
+  background-color: #020202;
+  border: none;
+  outline: none;
+  color: #fefefe;
+  border-radius: 5px;
+  padding: 5px 10px;
+  height: 20%;
+}
+
+button:hover,
+.postUtils > a > button:hover {
+  background-color: #696969;
+}
+
+button > a {
+  text-decoration: none;
+  color: #fefefe;
+}
+
+hr {
+  width: 100%;
+}
+
+.postContainer {
+  display: flex;
+  align-items: center;
+  border: 1px solid #696969;
+  padding: 15px 25px;
+  border-radius: 5px;
+  margin: 10px 0;
+  width: 100%;
+  justify-content: space-between;
+}
+
+.postContainer div {
+  font-size: 1rem;
+  text-transform: uppercase;
+  font-weight: 400;
+}
+
+.postContainer p,
+p {
+  font-size: 0.9rem;
+}
+
+.detailContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 80%;
+  margin: auto;
+}
+
+.detailContainer div,
+.detailContainer img {
+  margin: 10px 0;
+}
+
+.detailContainer img {
+  width: 100%;
+  height: 400px;
+  object-fit: cover;
+}
+
+.postUtils > a > button {
+  margin: 10px;
+  padding: 10px 10px;
+  background-color: #020202;
+  border: none;
+  outline: none;
+  color: #fefefe;
+  border-radius: 5px;
+}
+
+.postUtils {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
