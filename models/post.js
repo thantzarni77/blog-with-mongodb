@@ -2,17 +2,24 @@ const { getDatabase } = require("../utils/database");
 const mongodb = require("mongodb");
 
 class Post {
-  constructor(title, description, imgUrl) {
+  constructor(title, description, imgUrl, id) {
     (this.title = title),
       (this.description = description),
       (this.imgUrl = imgUrl);
+    this._id = id ? new mongodb.ObjectId(id) : null;
   }
 
   addPost() {
     const db = getDatabase();
-    return db
-      .collection("posts")
-      .insertOne(this)
+    let dbTmp;
+    if (this._id) {
+      dbTmp = db
+        .collection("posts")
+        .updateOne({ _id: this._id }, { $set: this });
+    } else {
+      dbTmp = db.collection("posts").insertOne(this);
+    }
+    return dbTmp
       .then((result) => console.log(result))
       .catch((err) => console.log(err));
   }
@@ -20,8 +27,9 @@ class Post {
   static getPosts() {
     const db = getDatabase();
     return db
-      .collection("posts")
+      .collection("posts", { locale: "en", caseLevel: true })
       .find()
+      .sort({ title: 1 })
       .toArray()
       .then((posts) => {
         console.log(posts);
@@ -40,6 +48,15 @@ class Post {
         console.log(post);
         return post;
       })
+      .catch((err) => console.log(err));
+  }
+
+  static deletePost(postId) {
+    const db = getDatabase();
+    return db
+      .collection("posts")
+      .deleteOne({ _id: new mongodb.ObjectId(postId) })
+      .then((result) => console.log("post deleted"))
       .catch((err) => console.log(err));
   }
 }

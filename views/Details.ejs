@@ -4,10 +4,10 @@
   <img src="<%=post.imgUrl%>" alt="" />
   <div><%=post.description%></div>
   <div class="postUtils">
-    <form action="/admin/post/<%=post._id%>" method="post">
+    <form action="/admin/delete/<%=post._id%>" method="post">
       <button>DELETE POST</button>
     </form>
-    <a href="/admin/post-edit/<%=post._id%>"><button>EDIT POST</button></a>
+    <a href="/admin/edit/<%=post._id%>"><button>EDIT POST</button></a>
   </div>
 </section>
 <%- include("./includes/Footer")%>

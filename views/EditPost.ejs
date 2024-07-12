@@ -1,0 +1,38 @@
+<%- include("./includes/Header")%>
+<section class="addPost">
+  <div class="titleContainer">
+    <h1>Edit Post Here</h1>
+    <button><a href="/">Go Back Home</a></button>
+  </div>
+  <form action="/admin/edit/" method="post" class="form">
+    <input type="text" value="<%=post._id%>" name="postId" hidden />
+    <div class="formInput">
+      <label for="title">Title</label>
+      <input
+        type="text"
+        id="title"
+        name="title"
+        required
+        value="<%=post.title%>"
+      />
+    </div>
+    <div class="formInput">
+      <label for="photo">Photo</label>
+      <input
+        type="text"
+        id="photo"
+        name="photo"
+        required
+        value="<%=post.imgUrl%>"
+      />
+    </div>
+    <div class="formInput">
+      <label for="description">Description</label>
+      <textarea name="description" id="description" rows="10" cols="10">
+<%=post.description%></textarea
+      >
+    </div>
+    <button>Update</button>
+  </form>
+  <%- include("./includes/Footer")%>
+</section>
