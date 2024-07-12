@@ -14,7 +14,7 @@
   <%}%> <% for (let post of posts) {%>
   <div class="postContainer">
     <div><%=post.title%></div>
-    <a href="post/<%= post.id %>"><button>See More</button></a>
+    <a href="post/<%= post._id %>"><button>See More</button></a>
   </div>
   <%}%> <%- include("./includes/Footer")%>
 </section>

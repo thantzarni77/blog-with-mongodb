@@ -4,7 +4,7 @@ const path = require("path");
 const postRoutes = require("./routes/posts");
 const adminRoutes = require("./routes/admin");
 
-const mongodbConnector = require("./utils/database");
+const { mongodbConnector } = require("./utils/database");
 
 const app = express();
 

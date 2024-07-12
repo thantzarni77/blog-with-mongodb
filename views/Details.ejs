@@ -1,7 +1,13 @@
 <%- include("./includes/Header")%>
 <section class="detailContainer">
   <h1><%=post.title%></h1>
-  <img src="<%=post.photo%>" alt="" />
+  <img src="<%=post.imgUrl%>" alt="" />
   <div><%=post.description%></div>
+  <div class="postUtils">
+    <form action="/admin/post/<%=post._id%>" method="post">
+      <button>DELETE POST</button>
+    </form>
+    <a href="/admin/post-edit/<%=post._id%>"><button>EDIT POST</button></a>
+  </div>
 </section>
 <%- include("./includes/Footer")%>

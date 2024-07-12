@@ -3,14 +3,23 @@ const mongodbClient = mongodb.MongoClient;
 
 const dotenv = require("dotenv").config();
 
+let db;
+
 const mongodbConnector = () => {
   mongodbClient
     .connect(process.env.MONGODB_URL)
     .then((result) => {
-      console.log("connected to database");
       console.log(result);
+      db = result.db();
     })
     .catch((err) => console.log(err));
 };
 
-module.exports = mongodbConnector;
+const getDatabase = () => {
+  if (db) {
+    return db;
+  }
+  throw "Can't connect to database";
+};
+
+module.exports = { mongodbConnector, getDatabase };
