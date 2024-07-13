@@ -1,10 +1,10 @@
 const express = require("express");
 const path = require("path");
+const mongoose = require("mongoose");
 
 const postRoutes = require("./routes/posts");
 const adminRoutes = require("./routes/admin");
-
-const { mongodbConnector } = require("./utils/database");
+const dotenv = require("dotenv").config();
 
 const app = express();
 
@@ -29,5 +29,10 @@ app.use("/admin", (req, res, next) => {
 app.use(postRoutes);
 app.use("/admin", adminRoutes);
 
-mongodbConnector();
-app.listen(8000);
+mongoose
+  .connect(process.env.MONGODB_URL)
+  .then(() => {
+    app.listen(8000);
+    console.log("connected to mongodb");
+  })
+  .catch((err) => console.log(err));

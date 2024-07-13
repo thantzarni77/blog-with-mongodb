@@ -72,6 +72,10 @@ form button {
   border-radius: 5px;
 }
 
+button:hover {
+  cursor: pointer;
+}
+
 .titleContainer {
   display: flex;
   justify-content: space-evenly;
