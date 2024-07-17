@@ -15,13 +15,15 @@ exports.renderCreatePage = (req, res) => {
 };
 
 exports.renderHomePage = (req, res) => {
+  const cookie = req.get("Cookie").split("=")[1] === "true";
+  console.log(cookie);
   Post.find()
     .select("title")
     .populate("userId", "username")
     .sort({ title: 1 })
     .then((posts) => {
       console.log(posts);
-      res.render("Home", { title: "Home Page", posts });
+      res.render("Home", { title: "Home Page", posts, cookie });
     })
     .catch((err) => console.log(err));
 };

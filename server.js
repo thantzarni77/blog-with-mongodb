@@ -4,6 +4,7 @@ const mongoose = require("mongoose");
 
 const postRoutes = require("./routes/posts");
 const adminRoutes = require("./routes/admin");
+const authRoutes = require("./routes/auth");
 const dotenv = require("dotenv").config();
 
 const app = express();
@@ -32,6 +33,7 @@ app.use("/admin", (req, res, next) => {
 
 app.use(postRoutes);
 app.use("/admin", adminRoutes);
+app.use(authRoutes);
 
 mongoose
   .connect(process.env.MONGODB_URL)

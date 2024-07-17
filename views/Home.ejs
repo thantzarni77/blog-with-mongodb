@@ -6,7 +6,11 @@
     culpa, ad labore modi quibusdam quasi inventore libero minima, fugit
     repellat blanditiis animi maxime iure autem eum distinctio alias.
   </p>
+  <% if(cookie) {%>
   <button><a href="/admin/create-post">Add Post</a></button>
+  <%} else { %>
+  <button><a href="/login">Create a new account</a></button>
+  <%}%>
   <hr />
   <h1>Posts</h1>
   <% if(posts.length === 0) {%>
