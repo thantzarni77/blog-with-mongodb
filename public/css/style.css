@@ -17,6 +17,10 @@
   border-radius: 5px;
 }
 
+.login {
+  align-self: flex-end;
+}
+
 .addPost {
   display: flex;
   flex-direction: column;

@@ -6,8 +6,13 @@
     culpa, ad labore modi quibusdam quasi inventore libero minima, fugit
     repellat blanditiis animi maxime iure autem eum distinctio alias.
   </p>
-  <% if(cookie) {%>
-  <button><a href="/admin/create-post">Add Post</a></button>
+  <% if(isLogin) {%>
+  <div class="login">
+    <button><a href="/admin/create-post">Add a new post</a></button>
+    <form action="/logout" method="post">
+      <button>Logout</button>
+    </form>
+  </div>
   <%} else { %>
   <button><a href="/login">Create a new account</a></button>
   <%}%>
