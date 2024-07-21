@@ -5,6 +5,7 @@
     <button><a href="/">Go Back Home</a></button>
   </div>
   <form action="/login" method="post" class="form">
+    <input hidden value="<%= csrfToken %>" name="_csrf" />
     <div class="formInput">
       <label for="email">Email</label>
       <input type="text" id="email" name="email" />

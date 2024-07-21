@@ -117,6 +117,7 @@ hr {
   border: 1px solid #696969;
   padding: 15px 20px;
   border-radius: 5px;
+  margin: 10px;
   width: 100%;
   justify-content: space-between;
 }

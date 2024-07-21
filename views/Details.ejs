@@ -5,6 +5,7 @@
   <div><%=post.description%></div>
   <div class="postUtils">
     <form action="/admin/delete/<%=post._id%>" method="post">
+      <input hidden value="<%= csrfToken %>" name="_csrf" />
       <button>DELETE POST</button>
     </form>
     <a href="/admin/edit/<%=post._id%>"><button>EDIT POST</button></a>

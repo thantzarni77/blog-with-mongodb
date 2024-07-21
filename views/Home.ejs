@@ -10,6 +10,7 @@
   <div class="login">
     <button><a href="/admin/create-post">Add a new post</a></button>
     <form action="/logout" method="post">
+      <input hidden value="<%= csrfToken %>" name="_csrf" />
       <button>Logout</button>
     </form>
   </div>
@@ -25,6 +26,7 @@
   <div class="postContainer">
     <div>
       <div class="postTitle"><%=post.title%></div>
+      <p>Posted by <span><%=post.userId.email%></span></p>
     </div>
     <a href="post/<%= post._id %>"><button>See More</button></a>
   </div>

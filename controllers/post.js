@@ -4,7 +4,6 @@ exports.createPost = (req, res) => {
   const { title, photo, description } = req.body;
   Post.create({ title, description, imgUrl: photo, userId: req.user })
     .then((result) => {
-      console.log(result);
       res.redirect("/");
     })
     .catch((err) => console.log(err));
@@ -18,14 +17,12 @@ exports.renderHomePage = (req, res) => {
   console.log(req.session.isLogin);
   Post.find()
     .select("title")
-    .populate("userId", "username")
+    .populate("userId", "email")
     .sort({ title: 1 })
     .then((posts) => {
-      console.log(posts);
       res.render("Home", {
         title: "Home Page",
         posts,
-        isLogin: req.session.isLogin ? true : false,
       });
     })
     .catch((err) => console.log(err));
@@ -35,7 +32,10 @@ exports.getDetails = (req, res) => {
   const postId = req.params.postId;
   Post.findById(postId)
     .then((post) => {
-      res.render("Details", { title: post.title, post });
+      res.render("Details", {
+        title: post.title,
+        post,
+      });
     })
     .catch((err) => console.log(err));
 };
