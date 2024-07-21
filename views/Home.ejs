@@ -14,7 +14,8 @@
     </form>
   </div>
   <%} else { %>
-  <button><a href="/login">Create a new account</a></button>
+  <button><a href="/login">Login to your account</a></button>
+  <button><a href="/register">Create a new account</a></button>
   <%}%>
   <hr />
   <h1>Posts</h1>
@@ -24,7 +25,6 @@
   <div class="postContainer">
     <div>
       <div class="postTitle"><%=post.title%></div>
-      <p>Posted by <span><%=post.userId.username%></span></p>
     </div>
     <a href="post/<%= post._id %>"><button>See More</button></a>
   </div>

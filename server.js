@@ -33,13 +33,6 @@ app.use(
   })
 );
 
-app.use((req, res, next) => {
-  User.findById("6694199b6b37b3af19ce3b32").then((user) => {
-    req.user = user;
-    next();
-  });
-});
-
 app.use("/admin", (req, res, next) => {
   console.log("Admin Middleware");
   next();
@@ -54,16 +47,5 @@ mongoose
   .then(() => {
     app.listen(8000);
     console.log("connected to mongodb");
-    return User.findOne().then((user) => {
-      if (!user) {
-        User.create({
-          username: "testuser",
-          email: "testuser@gmail.com",
-          password: "testuser",
-        });
-      }
-      return user;
-    });
   })
-  .then((result) => console.log(result))
   .catch((err) => console.log(err));
