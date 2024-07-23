@@ -7,6 +7,11 @@
   <form action="/register" method="post" class="form">
     <input hidden value="<%= csrfToken %>" name="_csrf" />
     <div class="formInput">
+      <% if(error.length) {%>
+      <div class="errMsg-warn"><%= error %></div>
+      <%}%>
+    </div>
+    <div class="formInput">
       <label for="email">Email</label>
       <input type="text" id="email" name="email" />
     </div>
@@ -16,5 +21,5 @@
     </div>
     <button>Signup</button>
   </form>
-  <%- include("../includes/Footer")%>
 </section>
+<%- include("../includes/Footer")%>

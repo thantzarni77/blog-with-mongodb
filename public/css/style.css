@@ -18,7 +18,35 @@
 }
 
 .login {
-  align-self: flex-end;
+  width: 100%;
+}
+
+.loginSession {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.logoutBtn {
+  align-self: start !important;
+}
+
+.errMsg {
+  color: #c74242;
+  background-color: rgba(255, 114, 126, 0.4);
+  backdrop-filter: blur(2px);
+  border: 1px solid #696969;
+  text-align: center;
+  padding: 10px 50px;
+}
+
+.errMsg-warn {
+  color: #807300;
+  background-color: rgba(255, 252, 51, 0.6);
+  backdrop-filter: blur(2px);
+  border: 1px solid #696969;
+  text-align: center;
+  padding: 10px 50px;
 }
 
 .addPost {
@@ -76,6 +104,20 @@ form button {
   border-radius: 5px;
 }
 
+form > a {
+  text-decoration: none;
+  margin: 10px;
+  padding: 10px 10px;
+  background-color: #020202;
+  border: none;
+  outline: none;
+  color: #fefefe;
+  border-radius: 5px;
+  width: 12%;
+  text-align: center;
+  font-size: small;
+}
+
 button:hover {
   cursor: pointer;
 }
@@ -87,7 +129,8 @@ button:hover {
   width: 100%;
 }
 
-.titleContainer > button {
+.titleContainer > button,
+.btn {
   background-color: #020202;
   border: none;
   outline: none;
@@ -98,11 +141,14 @@ button:hover {
 }
 
 button:hover,
-.postUtils > a > button:hover {
+.postUtils > a > button:hover,
+form a:hover,
+.btn:hover {
   background-color: #696969;
 }
 
-button > a {
+button > a,
+a {
   text-decoration: none;
   color: #fefefe;
 }
@@ -128,7 +174,7 @@ hr {
   font-weight: 400;
 }
 
-.postContainer span {
+span {
   color: #8f3434;
 }
 

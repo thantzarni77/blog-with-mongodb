@@ -3,6 +3,7 @@
   <h1><%=post.title%></h1>
   <img src="<%=post.imgUrl%>" alt="" />
   <div><%=post.description%></div>
+  <% if (post.userId.toString() === currentUserId.toString()) {%>
   <div class="postUtils">
     <form action="/admin/delete/<%=post._id%>" method="post">
       <input hidden value="<%= csrfToken %>" name="_csrf" />
@@ -10,5 +11,6 @@
     </form>
     <a href="/admin/edit/<%=post._id%>"><button>EDIT POST</button></a>
   </div>
+  <%}%>
 </section>
 <%- include("./includes/Footer")%>

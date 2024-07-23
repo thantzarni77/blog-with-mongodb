@@ -8,11 +8,18 @@
   </p>
   <% if(isLogin) {%>
   <div class="login">
-    <button><a href="/admin/create-post">Add a new post</a></button>
-    <form action="/logout" method="post">
-      <input hidden value="<%= csrfToken %>" name="_csrf" />
-      <button>Logout</button>
-    </form>
+    <div>
+      <button><a href="/admin/create-post">Add a new post</a></button>
+    </div>
+    <div class="loginSession">
+      <div>
+        <form action="/logout" method="post">
+          <input hidden value="<%= csrfToken %>" name="_csrf" />
+          <button class="logoutBtn">Logout</button>
+        </form>
+      </div>
+      <div>Loggined in as <span><%= userEmail %></span></div>
+    </div>
   </div>
   <%} else { %>
   <button><a href="/login">Login to your account</a></button>
@@ -20,7 +27,7 @@
   <%}%>
   <hr />
   <h1>Posts</h1>
-  <% if(posts.length === 0) {%>
+  <% if(posts.length === 0 && isLogin) {%>
   <div>Nothing Here!! Click add Post button above to create a new Post</div>
   <%}%> <% for (let post of posts) {%>
   <div class="postContainer">
@@ -30,5 +37,6 @@
     </div>
     <a href="post/<%= post._id %>"><button>See More</button></a>
   </div>
-  <%}%> <%- include("./includes/Footer")%>
+  <%}%>
 </section>
+<%- include("./includes/Footer")%>
