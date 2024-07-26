@@ -1,42 +1,48 @@
 <%- include("./includes/Header")%>
-<section class="homePageContainer">
-  <h1>Home Page</h1>
-  <p>
-    Lorem ipsum dolor sit amet consectetur, adipisicing elit. Sapiente odit a
-    culpa, ad labore modi quibusdam quasi inventore libero minima, fugit
-    repellat blanditiis animi maxime iure autem eum distinctio alias.
-  </p>
-  <% if(isLogin) {%>
-  <div class="login">
-    <div>
-      <button><a href="/admin/create-post">Add a new post</a></button>
-    </div>
-    <div class="loginSession">
-      <div>
+<section class="flex flex-col items-center">
+  <div class="top-0 bg-blue-500 text-slate-100 w-[100%] flex justify-around px-5 sticky mb-3 items-center">
+    <h1 class="text-2xl font-bold ">Home Page</h1>
+    <% if(isLogin) {%>
+      <div class="navbar">
+        <button class="button mr-3"><a href="/admin/create-post">Add a new post</a></button>
         <form action="/logout" method="post">
           <input hidden value="<%= csrfToken %>" name="_csrf" />
-          <button class="logoutBtn">Logout</button>
+          <button class="button">Logout</button>
         </form>
       </div>
-      <div>Loggined in as <span><%= userEmail %></span></div>
+    <%} else { %>
+    <div class="navbar">
+      <button class="mx-5 button"><a href="/login">Login</a></button>
+      <button class="button"><a href="/register">Signup</a></button>
+    </div>
+  <%}%>
+  </div>
+  <div class="flex flex-col items-center px-5">
+    <% if(isLogin) {%>
+    <div class="self-end mb-3">Loginned in as <span class="text-sky-600 font-medium"><%= userEmail %></span></div>
+    <%}%>
+    <p>
+      Lorem ipsum dolor sit amet consectetur, adipisicing elit. Sapiente odit a
+      culpa, ad labore modi quibusdam quasi inventore libero minima, fugit
+      repellat blanditiis animi maxime iure autem eum distinctio alias.
+    </p>
+    <hr class="w-[100%] my-4"/>
+  </div>
+  <div class="flex flex-col items-center w-[100%]">
+    <h1 class="text-2xl mb-3 font-bold">Posts</h1>
+    <div class="flex w-[100%] justify-around flex-wrap">
+    <% if(posts.length === 0 && isLogin) {%>
+      <div>Nothing Here!! Click add Post button above to create a new Post</div>
+    <%}%> 
+    <% for (let post of posts) {%>
+      <div class="flex flex-col items-start w-[80%] sm:w-[400px] border-sky-400 border-2 shadow-xl rounded-md bg-slate-100 mx-3 my-2 p-5 h-96 ">
+          <div><%=post.title%></div>
+          <p class="my-2">Posted by <span class="text-blue-400 font-medium"><%=post.userId.email%></span></p>
+          <img class="my-2 rounded-md w-full h-full" src="<%=post.imgUrl%>" alt="<%=post.title%>">
+          <p><%=post.description.substr(0,100)%> ...</p>
+          <a class="mt-2 button" href="post/<%= post._id %>"><button>See More</button></a>
+      </div>
+    <%}%>
     </div>
   </div>
-  <%} else { %>
-  <button><a href="/login">Login to your account</a></button>
-  <button><a href="/register">Create a new account</a></button>
-  <%}%>
-  <hr />
-  <h1>Posts</h1>
-  <% if(posts.length === 0 && isLogin) {%>
-  <div>Nothing Here!! Click add Post button above to create a new Post</div>
-  <%}%> <% for (let post of posts) {%>
-  <div class="postContainer">
-    <div>
-      <div class="postTitle"><%=post.title%></div>
-      <p>Posted by <span><%=post.userId.email%></span></p>
-    </div>
-    <a href="post/<%= post._id %>"><button>See More</button></a>
-  </div>
-  <%}%>
-</section>
-<%- include("./includes/Footer")%>
+<%- include("./includes/Footer") %> 

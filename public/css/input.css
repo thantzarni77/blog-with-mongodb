@@ -1,0 +1,39 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .button {
+    @apply bg-white shadow-md font-semibold text-blue-400 px-3 py-2 rounded-md;
+  }
+
+  .button:hover {
+    @apply bg-slate-800 text-white;
+  }
+
+  .navbar {
+    @apply flex ml-auto justify-evenly py-2;
+  }
+
+  .formInput {
+    @apply flex flex-col w-[80%] m-auto;
+  }
+
+  .label {
+    @apply my-2;
+  }
+
+  .input {
+    @apply p-2 rounded border-blue-400 border-2 shadow-sm indent-2;
+  }
+
+  .input:focus {
+    outline: none;
+  }
+}
+
+@layer utilities {
+  .verAlign {
+    @apply flex flex-col items-center;
+  }
+}

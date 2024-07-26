@@ -1,39 +1,41 @@
 <%- include("./includes/Header")%>
-<section class="addPost">
-  <div class="titleContainer">
-    <h1>Edit Post Here</h1>
-    <button><a href="/">Go Back Home</a></button>
+<section class="verAlign">
+  <div class="verAlign">
+    <h1 class="text-2xl font-bold my-4 ">Edit Post Here</h1>
+    <button class="button mb-4"><a href="/">Go Back Home</a></button>
   </div>
-  <form action="/admin/edit/" method="post" class="form">
+  <form class="w-full verAlign" action="/admin/edit/" method="post" class="form">
     <input hidden value="<%= csrfToken %>" name="_csrf" />
     <input type="text" value="<%=post._id%>" name="postId" hidden />
     <div class="formInput">
-      <label for="title">Title</label>
+      <label for="title" class="label">Title</label>
       <input
         type="text"
         id="title"
         name="title"
         required
         value="<%=post.title%>"
+        class="input"
       />
     </div>
     <div class="formInput">
-      <label for="photo">Photo</label>
+      <label for="photo" class="label">Photo</label>
       <input
         type="text"
         id="photo"
         name="photo"
         required
         value="<%=post.imgUrl%>"
+        class="input"
       />
     </div>
     <div class="formInput">
-      <label for="description">Description</label>
-      <textarea name="description" id="description" rows="10" cols="10">
+      <label for="description" class="label">Description</label>
+      <textarea name="description" id="description" rows="10" cols="10" class="input">
 <%=post.description%></textarea
       >
     </div>
-    <button>Update</button>
+    <button class="button my-4">Update</button>
   </form>
 </section>
 <%- include("./includes/Footer")%>
