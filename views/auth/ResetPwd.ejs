@@ -1,21 +1,21 @@
 <%- include("../includes/Header")%>
-<section class="addPost">
-  <div class="titleContainer">
-    <h1>Reset Password Here</h1>
-    <button><a href="/login">Go Back to Login</a></button>
+<section class="verAlign">
+  <div class="verAlign ">
+    <h1 class="text-2xl font-bold my-3">Reset Password Here</h1>
+    <button class="button"><a href="/login">Go Back to Login</a></button>
   </div>
-  <form action="/reset" method="post" class="form">
+  <form class="w-full verAlign" action="/reset" method="post" class="form">
     <input hidden value="<%= csrfToken %>" name="_csrf" />
     <div class="formInput">
       <% if(error.length) {%>
-      <div class="errMsg"><%= error %></div>
+      <div class="warning"><%= error %></div>
       <%}%>
     </div>
     <div class="formInput">
-      <label for="email">Email</label>
-      <input type="text" id="email" name="email" />
+      <label class="label" for="email">Email</label>
+      <input class="input" type="text" id="email" name="email" />
     </div>
-    <button>Reset Password</button>
+    <button class="button my-3">Reset Password</button>
   </form>
 </section>
 <%- include("../includes/Footer")%>

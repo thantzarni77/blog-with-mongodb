@@ -1,26 +1,26 @@
 <%- include("../includes/Header")%>
-<section class="addPost">
-  <div class="titleContainer">
-    <h1>Login to your account</h1>
-    <button><a href="/">Go Back Home</a></button>
+<section class="verAlign w-full">
+  <div class="verAlign">
+    <h1 class="text-xl font-bold my-4">Login to your account</h1>
+    <button class="button"><a href="/">Go Back Home</a></button>
   </div>
-  <form action="/login" method="post" class="form">
+  <form class="w-[80%] verAlign" action="/login" method="post" class="form">
     <input hidden value="<%= csrfToken %>" name="_csrf" />
     <div class="formInput">
       <% if(error.length) {%>
-      <div class="errMsg"><%= error %></div>
+      <div class="warning"><%= error %></div>
       <%}%>
     </div>
     <div class="formInput">
-      <label for="email">Email</label>
-      <input type="text" id="email" name="email" />
+      <label for="email" class="label">Email</label>
+      <input type="text" id="email" name="email" class="input"/>
     </div>
     <div class="formInput">
-      <label for="password">Password</label>
-      <input type="password" id="password" name="password" />
+      <label for="password" class="label">Password</label>
+      <input type="password" id="password" name="password" class="input"/>
     </div>
-    <a href="/reset-password">Forget Password ?</a>
-    <button>Login</button>
+    <a href="/reset-password" class="mt-4 self-start ml-[10%] underline text-blue-600">Forget Password ?</a>
+    <button class="button mt-4">Login</button>
   </form>
 </section>
 <%- include("../includes/Footer")%>

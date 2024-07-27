@@ -1,25 +1,25 @@
 <%- include("../includes/Header")%>
-<section class="addPost">
-  <div class="titleContainer">
-    <h1>Create a new account</h1>
-    <button><a href="/">Go Back Home</a></button>
+<section class="verAlign w-full">
+  <div class="verAlign">
+    <h1 class="text-xl font-bold my-4">Create a new account</h1>
+    <button class="button"><a href="/">Go Back Home</a></button>
   </div>
-  <form action="/register" method="post" class="form">
+  <form class="w-[80%] verAlign" action="/register" method="post" class="form">
     <input hidden value="<%= csrfToken %>" name="_csrf" />
     <div class="formInput">
       <% if(error.length) {%>
-      <div class="errMsg-warn"><%= error %></div>
+      <div class="warning bg-yellow-200 border-yellow-100 text-yellow-800"><%= error %></div>
       <%}%>
     </div>
     <div class="formInput">
-      <label for="email">Email</label>
-      <input type="text" id="email" name="email" />
+      <label for="email" class="label">Email</label>
+      <input type="text" id="email" name="email" class="input"/>
     </div>
     <div class="formInput">
-      <label for="password">Password</label>
-      <input type="password" id="password" name="password" />
+      <label for="password" class="label">Password</label>
+      <input type="password" id="password" name="password" class="input"/>
     </div>
-    <button>Signup</button>
+    <button class="button my-4">Signup</button>
   </form>
 </section>
 <%- include("../includes/Footer")%>
