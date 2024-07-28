@@ -9,8 +9,8 @@
     <%}%>
   <img class="mb-3 rounded w-[90%]" src="<%=post.imgUrl%>" alt="" />
   <div class="m-auto w-[90%]"><%=post.description%></div>
-  <% if (post.userId._id.toString() === currentUserId.toString()) {%>
-  <div class="flex w-full justify-center gap-8 my-4 items-center">
+  <% if (post.userId._id.toString() == currentUserId.toString()){%>
+  <div class="flex w-full justify-start ml-[10%] gap-8 my-4 items-center">
     <form action="/admin/delete/<%=post._id%>" method="post">
       <input hidden value="<%= csrfToken %>" name="_csrf" />
       <button class="button">DELETE POST</button>

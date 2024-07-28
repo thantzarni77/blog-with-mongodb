@@ -1,8 +1,8 @@
 const Post = require("../models/post");
 const { validationResult } = require("express-validator");
-const { formatISO9075 } = require("date-fns");
+const { formatISO9075, nextDay } = require("date-fns");
 
-exports.createPost = (req, res) => {
+exports.createPost = (req, res, next) => {
   const { title, photo, description } = req.body;
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
@@ -16,7 +16,11 @@ exports.createPost = (req, res) => {
     .then((result) => {
       res.redirect("/");
     })
-    .catch((err) => console.log(err));
+    .catch((err) => {
+      console.log(err);
+      const error = new Error("Something went wrong while creating post");
+      return next(error);
+    });
 };
 
 exports.renderCreatePage = (req, res) => {
@@ -27,7 +31,7 @@ exports.renderCreatePage = (req, res) => {
   });
 };
 
-exports.renderHomePage = (req, res) => {
+exports.renderHomePage = (req, res, next) => {
   Post.find()
     .select("title description imgUrl")
     .populate("userId", "email")
@@ -39,10 +43,14 @@ exports.renderHomePage = (req, res) => {
         userEmail: req.user ? req.user.email : "",
       });
     })
-    .catch((err) => console.log(err));
+    .catch((err) => {
+      console.log(err);
+      const error = new Error("Something went wrong");
+      return next(error);
+    });
 };
 
-exports.getDetails = (req, res) => {
+exports.getDetails = (req, res, next) => {
   const postId = req.params.postId;
   Post.findById(postId)
     .populate("userId", "email")
@@ -58,10 +66,14 @@ exports.getDetails = (req, res) => {
           : undefined,
       });
     })
-    .catch((err) => console.log(err));
+    .catch((err) => {
+      console.log(err);
+      const error = new Error("No post found with this id");
+      return next(error);
+    });
 };
 
-exports.getEditPost = (req, res) => {
+exports.getEditPost = (req, res, next) => {
   const postId = req.params.postId;
   Post.findById(postId)
     .then((post) => {
@@ -81,10 +93,14 @@ exports.getEditPost = (req, res) => {
         error: "",
       });
     })
-    .catch((err) => console.log(err));
+    .catch((err) => {
+      console.log(err);
+      const error = new Error("Can't edit the post");
+      return next(error);
+    });
 };
 
-exports.updatePost = (req, res) => {
+exports.updatePost = (req, res, next) => {
   const { title, description, photo, postId } = req.body;
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
@@ -108,14 +124,22 @@ exports.updatePost = (req, res) => {
         res.redirect("/");
       });
     })
-    .catch((err) => console.log(err));
+    .catch((err) => {
+      console.log(err);
+      const error = new Error("Something went wrong while editing the post");
+      return next(error);
+    });
 };
 
-exports.deletePost = (req, res) => {
+exports.deletePost = (req, res, next) => {
   const postId = req.params.postId;
   Post.findByIdAndDelete(postId)
     .then(() => {
       res.redirect("/");
     })
-    .catch((err) => console.log(err));
+    .catch((err) => {
+      console.log(err);
+      const error = new Error("Can't delete the post");
+      return next(error);
+    });
 };

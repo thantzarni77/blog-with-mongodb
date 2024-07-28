@@ -15,7 +15,7 @@ const transporter = nodemailer.createTransport({
 });
 
 //handle create account
-exports.createAccount = (req, res) => {
+exports.createAccount = (req, res, next) => {
   const { email, password } = req.body;
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
@@ -42,7 +42,11 @@ exports.createAccount = (req, res) => {
           subject: "Account Register successful",
           html: "<h1>Account registered successfully</h1><p>Created an account in this blog.io using this email</p>",
         },
-        (err) => console.log(err)
+        (err) => {
+          console.log(err);
+          const error = new Error("Can't create an account");
+          return next(error);
+        }
       );
     });
 };
@@ -66,7 +70,7 @@ exports.getLoginPage = (req, res) => {
 };
 
 //handle login
-exports.postLoginData = (req, res) => {
+exports.postLoginData = (req, res, next) => {
   const { email, password } = req.body;
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
@@ -104,7 +108,11 @@ exports.postLoginData = (req, res) => {
         })
         .catch((err) => console.log(err));
     })
-    .catch((err) => console.log(err));
+    .catch((err) => {
+      console.log(err);
+      const error = new Error("Something went wrong while login process");
+      return next(error);
+    });
 };
 
 //handle logout
@@ -131,7 +139,7 @@ exports.renderFeedback = (req, res) => {
 };
 
 //resestPwdLinkSent
-exports.resetLinkSent = (req, res) => {
+exports.resetLinkSent = (req, res, next) => {
   const { email } = req.body;
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
@@ -165,12 +173,16 @@ exports.resetLinkSent = (req, res) => {
           (err) => console.log(err)
         );
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        console.log(err);
+        const error = new Error("Something went wrong");
+        return next(error);
+      });
   });
 };
 
 //handle newPassword
-exports.getNewPasswordPage = (req, res) => {
+exports.getNewPasswordPage = (req, res, next) => {
   const { token } = req.params;
   User.findOne({ resultToken: token, tokenExpiration: { $gt: Date.now() } })
     .then((user) => {
@@ -182,11 +194,15 @@ exports.getNewPasswordPage = (req, res) => {
         oldFormData: { password: "", confirmPassword: "" },
       });
     })
-    .catch((err) => console.log(err));
+    .catch((err) => {
+      console.log(err);
+      const error = new Error("Something went wrong");
+      return next(error);
+    });
 };
 
 //setNewPassword
-exports.setNewPassword = (req, res) => {
+exports.setNewPassword = (req, res, next) => {
   const { resetToken, userId, password, confirmPassword } = req.body;
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
@@ -217,5 +233,9 @@ exports.setNewPassword = (req, res) => {
     .then(() => {
       return res.redirect("/login");
     })
-    .catch((err) => console.log(err));
+    .catch((err) => {
+      console.log(err);
+      const error = new Error("Something went wrong");
+      return next(error);
+    });
 };
