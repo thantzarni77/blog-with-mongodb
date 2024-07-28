@@ -4,9 +4,14 @@
     <h1 class="text-2xl font-bold my-4 ">Edit Post Here</h1>
     <button class="button mb-4"><a href="/">Go Back Home</a></button>
   </div>
-  <form class="w-full verAlign" action="/admin/edit/" method="post" class="form">
+  <form class="w-full verAlign" action="/admin/edit/" method="post" class="form" novalidate>
     <input hidden value="<%= csrfToken %>" name="_csrf" />
-    <input type="text" value="<%=post._id%>" name="postId" hidden />
+    <input type="text" value="<%= isValidationFail ? postId : post._id%>" name="postId" hidden />
+    <div class="formInput">
+      <% if(error.length) {%>
+      <div class="warning"><%= error %></div>
+      <%}%>
+    </div>
     <div class="formInput">
       <label for="title" class="label">Title</label>
       <input
@@ -14,7 +19,7 @@
         id="title"
         name="title"
         required
-        value="<%=post.title%>"
+        value="<%= isValidationFail ? oldFormData.title : post.title %>"
         class="input"
       />
     </div>
@@ -25,14 +30,14 @@
         id="photo"
         name="photo"
         required
-        value="<%=post.imgUrl%>"
+        value="<%= isValidationFail ? oldFormData.photo : post.imgUrl %>"
         class="input"
       />
     </div>
     <div class="formInput">
       <label for="description" class="label">Description</label>
       <textarea name="description" id="description" rows="10" cols="10" class="input">
-<%=post.description%></textarea
+<%= isValidationFail ? oldFormData.description : post.description %></textarea
       >
     </div>
     <button class="button my-4">Update</button>

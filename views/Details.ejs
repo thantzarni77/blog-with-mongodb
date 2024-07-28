@@ -3,9 +3,13 @@
  <div class="verAlign w-[90%] md:w-[70%] m-auto">
   <button class="button my-4"><a href="/">Go Back Home</a></button> 
    <h1 class="text-2xl font-bold mb-4"><%=post.title%></h1>
+   <p class="self-start ml-[5%] mb-2">Posted by - <span class="text-blue-600"><%=post.userId.email%></span></p>
+   <%if(date) {%>
+    <p class="self-start ml-[5%] mb-2">Uploaded at - <%=date%></p>
+    <%}%>
   <img class="mb-3 rounded w-[90%]" src="<%=post.imgUrl%>" alt="" />
   <div class="m-auto w-[90%]"><%=post.description%></div>
-  <% if (post.userId.toString() === currentUserId.toString()) {%>
+  <% if (post.userId._id.toString() === currentUserId.toString()) {%>
   <div class="flex w-full justify-center gap-8 my-4 items-center">
     <form action="/admin/delete/<%=post._id%>" method="post">
       <input hidden value="<%= csrfToken %>" name="_csrf" />

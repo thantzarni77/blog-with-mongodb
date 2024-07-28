@@ -4,15 +4,20 @@
     <h1 class="text-2xl font-bold my-4 ">Add Post Here</h1>
     <button class="button mb-4"><a href="/">Go Back Home</a></button>
   </div>
-  <form class="w-full verAlign" action="/admin" method="post">
+  <form class="w-full verAlign" action="/admin" method="post" novalidate>
     <input hidden value="<%= csrfToken %>" name="_csrf" />
+     <div class="formInput">
+      <% if(error.length) {%>
+      <div class="warning"><%= error %></div>
+      <%}%>
+    </div>
     <div class="formInput">
       <label for="title" class="label">Title</label>
-      <input type="text" id="title" name="title" required class="input"/>
+      <input type="text" id="title" name="title" required class="input" value="<%=oldFormData.title%>"/>
     </div>
     <div class="formInput">
       <label for="photo" class="label">Photo</label>
-      <input type="text" id="photo" name="photo" required class="input"/>
+      <input type="text" id="photo" name="photo" required class="input" value="<%=oldFormData.photo%>" />
     </div>
     <div class="formInput">
       <label for="description" class="label">Description</label>
@@ -22,7 +27,7 @@
         rows="10"
         cols="10"
         class="input"
-      ></textarea>
+      ><%=oldFormData.description%></textarea>
     </div>
     <button class="button my-4">ADD</button>
   </form>
