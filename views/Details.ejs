@@ -7,7 +7,7 @@
    <%if(date) {%>
     <p class="self-start ml-[5%] mb-2">Uploaded at - <%=date%></p>
     <%}%>
-  <img class="mb-3 rounded w-[90%]" src="<%=post.imgUrl%>" alt="" />
+  <img class="mb-3 rounded w-[90%]" src="<%='/' + post.imgUrl%>" alt="" />
   <div class="m-auto w-[90%]"><%=post.description%></div>
   <% if (post.userId._id.toString() == currentUserId.toString()){%>
   <div class="flex w-full justify-start ml-[10%] gap-8 my-4 items-center">

@@ -4,7 +4,7 @@
     <h1 class="text-2xl font-bold my-4 ">Edit Post Here</h1>
     <button class="button mb-4"><a href="/">Go Back Home</a></button>
   </div>
-  <form class="w-full verAlign" action="/admin/edit/" method="post" class="form" novalidate>
+  <form class="w-full verAlign" action="/admin/edit/" method="post" class="form" enctype="multipart/form-data">
     <input hidden value="<%= csrfToken %>" name="_csrf" />
     <input type="text" value="<%= isValidationFail ? postId : post._id%>" name="postId" hidden />
     <div class="formInput">
@@ -26,12 +26,9 @@
     <div class="formInput">
       <label for="photo" class="label">Photo</label>
       <input
-        type="text"
+        type="file"
         id="photo"
         name="photo"
-        required
-        value="<%= isValidationFail ? oldFormData.photo : post.imgUrl %>"
-        class="input"
       />
     </div>
     <div class="formInput">

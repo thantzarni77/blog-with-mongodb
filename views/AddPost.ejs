@@ -4,7 +4,7 @@
     <h1 class="text-2xl font-bold my-4 ">Add Post Here</h1>
     <button class="button mb-4"><a href="/">Go Back Home</a></button>
   </div>
-  <form class="w-full verAlign" action="/admin" method="post" novalidate>
+  <form class="w-full verAlign" action="/admin" method="post" enctype="multipart/form-data">
     <input hidden value="<%= csrfToken %>" name="_csrf" />
      <div class="formInput">
       <% if(error.length) {%>
@@ -17,7 +17,7 @@
     </div>
     <div class="formInput">
       <label for="photo" class="label">Photo</label>
-      <input type="text" id="photo" name="photo" required class="input" value="<%=oldFormData.photo%>" />
+      <input type="file" id="photo" name="photo" required class="my-1" />
     </div>
     <div class="formInput">
       <label for="description" class="label">Description</label>

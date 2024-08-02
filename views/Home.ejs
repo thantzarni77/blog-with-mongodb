@@ -32,7 +32,7 @@
     <h1 class="text-2xl mb-3 font-bold">Posts</h1>
     <div class="flex w-[100%] justify-around flex-wrap">
     <% if(posts.length === 0 && isLogin) {%>
-      <div>Nothing Here!! Click add Post button above to create a new Post</div>
+      <div><span class="font-bold">Nothing Here!!</span> Click add Post button above to create a new Post</div>
     <%}%> 
     <% for (let post of posts) {%>
       <div class="flex flex-col items-start w-[80%] sm:w-[400px] border-sky-400 border-2 shadow-xl rounded-md bg-slate-100 mx-3 my-2 p-5 h-96 ">
