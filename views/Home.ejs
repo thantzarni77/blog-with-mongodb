@@ -1,7 +1,7 @@
 <%- include("./includes/Header")%>
 <section class="flex flex-col items-center">
   <div class="top-0 bg-blue-500 text-slate-100 w-[100%] flex justify-around px-5 sticky mb-3 items-center">
-    <h1 class="text-2xl font-bold ">Home Page</h1>
+    <h1 class="text-2xl font-bold ">BLOG.io</h1>
     <% if(isLogin) {%>
       <div class="navbar">
         <button class="button mr-3"><a href="/admin/create-post">Add a new post</a></button>
@@ -35,14 +35,27 @@
       <div><span class="font-bold">Nothing Here!!</span> Click add Post button above to create a new Post</div>
     <%}%> 
     <% for (let post of posts) {%>
-      <div class="flex flex-col items-start w-[80%] sm:w-[400px] border-sky-400 border-2 shadow-xl rounded-md bg-slate-100 mx-3 my-2 p-5 h-96 ">
-          <div><%=post.title%></div>
-          <p class="my-2">Posted by <span class="text-blue-400 font-medium"><%=post.userId.email%></span></p>
-          <img class="my-2 rounded-md w-full h-full" src="<%=post.imgUrl%>" alt="<%=post.title%>">
-          <p><%=post.description.substr(0,100)%> ...</p>
-          <a class="mt-2 button" href="post/<%= post._id %>"><button>See More</button></a>
-      </div>
+      <div class="flex flex-col items-start w-[80%] sm:w-[400px] border-blue-400 border-2 shadow-xl rounded-md bg-slate-100 mx-3 my-2 p-5 md:h-[21rem] h-[22rem] ">
+        <div class="mt-[-0.4rem]"><%=post.title%></div>
+        <p class="my-1">Posted by <span class="text-blue-500 font-medium"><%=post.userId.email%></span></p>
+        <img class="my-1 rounded-md w-full h-36 object-cover" src="<%=post.imgUrl%>" alt="<%=post.title%>">
+        <p class="w-full break-words"><%=post.description.substr(0,80)%> ...</p>
+        <a class="mt-[0.4rem] button" href="post/<%= post._id %>"><button>See More</button></a>
+        </div>
     <%}%>
+    </div>
+    <div>
+      <% if (!hasNextPage && currentPage == 1) {%>
+        <a href="/?page=2"><button class="button my-2">Next Page</button></a>
+        <%}%>
+    </div>
+    <div class="w-[80%] flex flex-row-reverse justify-between items-center">
+       <% if (hasNextPage) {%>
+        <a href="/?page=<%=nextPage%>"><button class="button my-2">Next Page <%=nextPage%></button></a>
+        <%}%>
+        <% if (hasPreviousPage) {%>
+        <a href="/?page=<%=previousPage%>"><button class="button my-2">Previous Page <%=previousPage%></button></a>
+        <%}%>
     </div>
   </div>
 <%- include("./includes/Footer") %> 

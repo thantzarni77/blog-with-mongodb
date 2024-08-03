@@ -2,6 +2,10 @@ const Post = require("../models/post");
 const { validationResult } = require("express-validator");
 const { formatISO9075 } = require("date-fns");
 
+const fileDelete = require("../utils/fileDelete");
+
+const POST_PER_PAGE = 3;
+
 exports.createPost = (req, res, next) => {
   const { title, description } = req.body;
   const image = req.file;
@@ -41,16 +45,39 @@ exports.renderCreatePage = (req, res) => {
 };
 
 exports.renderHomePage = (req, res, next) => {
+  const pageNumber = +req.query.page || 1;
+  let totalPostsCount;
+
   Post.find()
-    .select("title description imgUrl")
-    .populate("userId", "email")
-    .sort({ title: 1 })
+    .countDocuments()
+    .then((totalPosts) => {
+      totalPostsCount = totalPosts;
+
+      return Post.find()
+        .select("title description imgUrl")
+        .skip((pageNumber - 1) * POST_PER_PAGE)
+        .limit(POST_PER_PAGE)
+        .populate("userId", "email")
+        .sort({ title: 1 });
+    })
     .then((posts) => {
-      res.render("Home", {
-        title: "Home Page",
-        posts,
-        userEmail: req.user ? req.user.email : "",
-      });
+      if (posts.length > 0) {
+        return res.render("Home", {
+          title: "Home Page",
+          posts,
+          userEmail: req.user ? req.user.email : "",
+          currentPage: pageNumber,
+          hasNextPage: POST_PER_PAGE * pageNumber < totalPostsCount,
+          hasPreviousPage: pageNumber > 1,
+          nextPage: pageNumber + 1,
+          previousPage: pageNumber - 1,
+        });
+      } else {
+        return res.status(500).render("error/500", {
+          title: "Something went wrong",
+          message: "No Post Avaliable in this page query",
+        });
+      }
     })
     .catch((err) => {
       console.log(err);
@@ -140,6 +167,7 @@ exports.updatePost = (req, res, next) => {
       post.title = title;
       post.description = description;
       if (image) {
+        fileDelete(post.imgUrl);
         post.imgUrl = image.path;
       }
       return post.save().then((result) => {
@@ -155,13 +183,20 @@ exports.updatePost = (req, res, next) => {
 
 exports.deletePost = (req, res, next) => {
   const postId = req.params.postId;
-  Post.findByIdAndDelete(postId)
+  Post.findById(postId)
+    .then((post) => {
+      if (!post) {
+        res.redirect("/");
+      }
+      fileDelete(post.imgUrl);
+      return Post.deleteOne({ _id: postId, userId: req.user._id });
+    })
     .then(() => {
       res.redirect("/");
     })
     .catch((err) => {
       console.log(err);
-      const error = new Error("Can't delete the post");
+      const error = new Error("Something went wrong");
       return next(error);
     });
 };
