@@ -4,7 +4,7 @@ const { formatISO9075 } = require("date-fns");
 
 const fileDelete = require("../utils/fileDelete");
 
-const POST_PER_PAGE = 3;
+const POST_PER_PAGE = 6;
 
 exports.createPost = (req, res, next) => {
   const { title, description } = req.body;

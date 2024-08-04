@@ -8,5 +8,26 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/c991bee0bf.js" crossorigin="anonymous"></script>
   </head>
   <body class="w-[100%] bg-slate-100 mx-auto">
+    <div class="top-0 bg-blue-500 text-slate-100 w-[100%] flex justify-around px-5 sticky mb-3 items-center">
+   <div class="flex justify-around items-center w-full p-2">
+     <h1 class="text-2xl font-bold "><a href="/">BLOG.io</a></h1>
+    <% if(isLogin) {%>
+      <div class="navbar">
+        <a class="hover:text-black" href="/admin/create-post"><i class="fa-solid fa-square-plus"></i></a>
+        <a class="hover:text-black" href="/admin/view-profile"><i class="fa-regular fa-id-card"></i></a>
+        <form action="/logout" method="post">
+          <input hidden value="<%= csrfToken %>" name="_csrf" />
+          <button class="hover:text-black"><i class="fa-solid fa-right-from-bracket"></i></button>
+        </form>
+      </div>
+    <%} else { %>
+    <div class="navbar">
+      <a class="hover:text-black" href="/login"><i class="fa-solid fa-right-to-bracket"></i></a>
+      <a class="hover:text-black" href="/register"><i class="fa-solid fa-user-plus"></i></a>
+    </div>
+  <%}%>
+   </div>
+  </div>

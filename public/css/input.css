@@ -4,15 +4,15 @@
 
 @layer components {
   .button {
-    @apply bg-white shadow-md font-semibold text-blue-400 text-[12px]  sm:text-base px-2 py-2 md:px-3 md:py-2 rounded-md;
+    @apply shadow-md font-semibold bg-slate-800 text-white text-[15px]  sm:text-base px-2 py-2 md:px-3 md:py-2 rounded-md;
   }
 
   .button:hover {
-    @apply bg-slate-800 text-white;
+    @apply text-blue-400 bg-white;
   }
 
   .navbar {
-    @apply flex ml-auto justify-evenly py-2;
+    @apply flex ml-auto justify-evenly items-center py-2 gap-5;
   }
 
   .formInput {
@@ -43,5 +43,29 @@
 
   .verAlign {
     @apply flex flex-col items-center;
+  }
+
+  .fa-user,
+  .fa-calendar {
+    font-size: 1.2rem;
+  }
+
+  .fa-arrow-left-long {
+    font-size: 2rem;
+  }
+
+  .fa-arrow-left-long:hover {
+    color: #3980f4;
+  }
+
+  .fa-right-from-bracket,
+  .fa-user-plus,
+  .fa-right-to-bracket {
+    font-size: 1.4rem;
+  }
+
+  .fa-id-card,
+  .fa-square-plus {
+    font-size: 1.5rem;
   }
 }
