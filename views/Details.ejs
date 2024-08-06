@@ -7,7 +7,7 @@
    </div>
    <div class="w-[90%] flex items-center gap-2">
     <i class="fa-solid fa-user"></i> 
-    <p ><%=post.userId.email%></span>
+    <a href="/profile/<%=post.userId._id%>"><%=post.userId.email%></a>
    </div>
    <%if(date) {%>
     <div class="w-[90%] flex items-center gap-2 my-2">

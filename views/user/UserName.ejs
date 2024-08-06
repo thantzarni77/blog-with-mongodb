@@ -1,0 +1,20 @@
+<%- include("../includes/Header")%>
+<section class="verAlign">
+  <div class="verAlign ">
+    <h1 class="text-2xl font-bold my-3">Set Username</h1>
+  </div>
+  <form class="w-full verAlign" action="/admin/setUserName" method="post" class="form">
+    <input hidden value="<%= csrfToken %>" name="_csrf" />
+    <div class="formInput">
+      <% if(error.length) {%>
+      <div class="warning"><%= error %></div>
+      <%}%>
+    </div>
+    <div class="formInput">
+      <label class="label" for="username">Enter Username</label>
+      <input class="input" type="text" id="username" name="username" value="<%=oldFormData.username%>"/>
+    </div>
+    <button class="button my-3">Set Username</button>
+  </form>
+</section>
+<%- include("../includes/Footer")%>

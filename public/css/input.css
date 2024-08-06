@@ -12,7 +12,7 @@
   }
 
   .navbar {
-    @apply flex ml-auto justify-evenly items-center py-2 gap-5;
+    @apply flex ml-auto justify-evenly items-center py-2 gap-2 md:gap-5;
   }
 
   .formInput {
@@ -61,11 +61,18 @@
   .fa-right-from-bracket,
   .fa-user-plus,
   .fa-right-to-bracket {
-    font-size: 1.4rem;
+    font-size: 1.2rem;
+    @apply md:text-[1.4rem];
   }
 
   .fa-id-card,
   .fa-square-plus {
-    font-size: 1.5rem;
+    font-size: 1.2rem;
+    @apply md:text-[1.5rem];
+  }
+
+  .fa-circle-user {
+    font-size: 1.8rem;
+    @apply md:text-[2.2rem];
   }
 }

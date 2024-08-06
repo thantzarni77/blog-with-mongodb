@@ -11,22 +11,45 @@
     <script src="https://kit.fontawesome.com/c991bee0bf.js" crossorigin="anonymous"></script>
   </head>
   <body class="w-[100%] bg-slate-100 mx-auto">
-    <div class="top-0 bg-blue-500 text-slate-100 w-[100%] flex justify-around px-5 sticky mb-3 items-center">
+    <div class="top-0 bg-blue-500 text-slate-100 w-[100%] flex justify-around px-2 md:px-5 sticky mb-3 items-center">
    <div class="flex justify-around items-center w-full p-2">
-     <h1 class="text-2xl font-bold "><a href="/">BLOG.io</a></h1>
+     <h1 class="text-xl md:text-2xl font-bold "><a href="/">BLOG.io</a></h1>
     <% if(isLogin) {%>
       <div class="navbar">
-        <a class="hover:text-black" href="/admin/create-post"><i class="fa-solid fa-square-plus"></i></a>
-        <a class="hover:text-black" href="/admin/view-profile"><i class="fa-regular fa-id-card"></i></a>
+        <a class="hover:text-black" href="/admin/create-post">
+          <div class="flex items-center gap-2">
+            <i class="fa-solid fa-square-plus"></i>
+            <p class="text-[14px] md:text-base">Add Post</p>
+          </div>
+        </a>
+        <a class="hover:text-black" href="/admin/profile">
+          <div class="flex items-center gap-2">
+            <i class="fa-regular fa-id-card"></i>
+            <p class="text-[14px] md:text-base">Profile</p>
+          </div>
+        </a>
         <form action="/logout" method="post">
           <input hidden value="<%= csrfToken %>" name="_csrf" />
-          <button class="hover:text-black"><i class="fa-solid fa-right-from-bracket"></i></button>
+          <button class="hover:text-black">
+            <div class="flex items-center gap-2">
+              <i class="fa-solid fa-right-from-bracket"></i>
+              <p class="text-[14px] md:text-base">Logout</p>
+            </div>
+          </button>
         </form>
       </div>
     <%} else { %>
     <div class="navbar">
-      <a class="hover:text-black" href="/login"><i class="fa-solid fa-right-to-bracket"></i></a>
-      <a class="hover:text-black" href="/register"><i class="fa-solid fa-user-plus"></i></a>
+      <a class="hover:text-black" href="/login">
+        <div class="flex items-center gap-2">
+        <i class="fa-solid fa-right-to-bracket"></i>
+        <p class="text-[14px] md:text-base">Login</p>
+      </div></a>
+      <a class="hover:text-black" href="/register">
+        <div class="flex items-center gap-2">
+          <i class="fa-solid fa-user-plus"></i><p class="text-[14px] md:text-base">Signup</p>
+        </div>
+      </a>
     </div>
   <%}%>
    </div>

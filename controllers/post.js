@@ -58,7 +58,7 @@ exports.renderHomePage = (req, res, next) => {
         .skip((pageNumber - 1) * POST_PER_PAGE)
         .limit(POST_PER_PAGE)
         .populate("userId", "email")
-        .sort({ title: 1 });
+        .sort({ createdAt: -1 });
     })
     .then((posts) => {
       if (posts.length > 0) {
@@ -71,6 +71,7 @@ exports.renderHomePage = (req, res, next) => {
           hasPreviousPage: pageNumber > 1,
           nextPage: pageNumber + 1,
           previousPage: pageNumber - 1,
+          userId: req.session.userData ? req.session.userData._id : "",
         });
       } else {
         return res.status(500).render("error/500", {
@@ -140,16 +141,6 @@ exports.updatePost = (req, res, next) => {
   const { title, description, postId } = req.body;
   const image = req.file;
   const errors = validationResult(req);
-
-  // if (image === undefined) {
-  //   return res.status(422).render("EditPost", {
-  //     title,
-  //     postId,
-  //     isValidationFail: true,
-  //     error: "Image type must be jpg/jpeg and png only",
-  //     oldFormData: { title, description },
-  //   });
-  // }
   if (!errors.isEmpty()) {
     return res.status(422).render("EditPost", {
       title,
