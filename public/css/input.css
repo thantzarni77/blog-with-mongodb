@@ -75,4 +75,10 @@
     font-size: 1.8rem;
     @apply md:text-[2.2rem];
   }
+
+  .fa-star-half-stroke {
+    font-size: 1.3rem;
+    @apply md:text-[1.1rem];
+    color: #3980f4;
+  }
 }

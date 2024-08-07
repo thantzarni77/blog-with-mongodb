@@ -13,8 +13,8 @@
              <div class="text-xl">No ads</div>
            </div>
            <div class="flex gap-3 items-center">
-            <i class="fa-solid fa-copy"></i>
-             <div class="text-xl">Create Many Posts as you want</div>
+            <i class="fa-solid fa-bullseye"></i>
+             <div class="text-xl">Animated Profile Badge</div>
            </div>
            <div class="flex gap-3 items-center my-3">
             <i class="fa-solid fa-headset"></i>
@@ -26,7 +26,18 @@
            </div>
            
         </div>
-        <button class="button w-full ">Buy Now</button>
+        <button class="button w-full ckBtn">Buy Now</button>
+        <script src="https://js.stripe.com/v3/"></script>
+        <script>
+          const stripe = Stripe('pk_test_51PlErw2N1koI3KTDuO7xdoo8rmBGo7EgNjGk2Z9zR9kFLkyjv4tu8Z3cKo15X1qPq4NTOa4mrWnKrkpj2Y98fPza007vcPowHO') 
+          const ckBtn = document.querySelector(".ckBtn")
+
+          ckBtn.addEventListener("click", () => {
+            stripe.redirectToCheckout({
+              sessionId : "<%=session_id%>"
+            })
+          })
+        </script>
     </div>
  </div>
 </section>

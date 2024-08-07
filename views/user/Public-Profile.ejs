@@ -1,9 +1,19 @@
 <%- include("../includes/Header")%>
 <section class="verAlign">
     <div class="flex flex-col items-center w-[100%]">
-      <div class="flex items-center mb-3 gap-4">
-        <i><i class="fa-solid fa-circle-user"></i></i>
-      <h1 class="text-xl md:text-2xl font-bold"><%=userEmail%></h1>
+        <div class="flex flex-col items-center">
+          <i><i class="fa-solid fa-circle-user my-2"></i></i>
+          <h1 class="text-xl md:text-2xl font-bold"><%=userEmail%></h1>
+        <%if(posts[0].userId.username) { %>
+              <div class="flex items-center gap-2">
+                <h1><%=posts[0].userId.username%></h1>
+                <% if(posts[0].userId.isPremium) {%>
+                  <i class="fa-solid fa-star-half-stroke animate__animated animate__rubberBand animate__infinite my-2"></i>
+                <%}%>
+              </div>
+            <%}else {%>
+              <h1><%=posts[0].userId.username%></h1>
+            <%}%>
       </div>
       <div class="flex w-[100%] justify-around flex-wrap">
       <% if(posts.length === 0 && isLogin) {%>

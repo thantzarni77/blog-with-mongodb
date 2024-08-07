@@ -5,7 +5,16 @@
         <div class="flex flex-col justify-center items-center">
           <i class="fa-solid fa-circle-user"></i>
           <h1 class="text-2xl mb-3 font-bold"><%=userEmail%></h1>
-          <h1><%=posts[0].userId.username ? posts[0].userId.username : "" %></h1>
+          <%if(posts[0].userId.username) { %>
+            <div class="flex items-center gap-2">
+              <h1><%=posts[0].userId.username%></h1>
+              <% if(posts[0].userId.isPremium) {%>
+                <i class="fa-solid fa-star-half-stroke animate__animated animate__rubberBand animate__infinite"></i>
+              <%}%>
+            </div>
+          <%}else {%>
+            <h1><%=posts[0].userId.username%></h1>
+          <%}%>
         </div>
         <div class="flex flex-col">
           <button class="button mb-4"><a href="/admin/username">Set Username</a></button>
