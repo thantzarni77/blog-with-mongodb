@@ -1,0 +1,20 @@
+<%- include("../includes/Header")%>
+<section class="verAlign">
+  <div class="verAlign ">
+    <h1 class="text-2xl font-bold my-3">Upload Profile</h1>
+  </div>
+  <form class="w-full verAlign" action="/admin/setprofile" method="post" class="form" enctype="multipart/form-data">
+    <input hidden value="<%= csrfToken %>" name="_csrf" />
+    <div class="formInput">
+      <% if(error.length) {%>
+      <div class="warning"><%= error %></div>
+      <%}%>
+    </div>
+    <div class="formInput">
+      <label class="label" for="photo">Upload Image</label>
+      <input class="input" type="file" id="photo" name="photo" />
+    </div>
+    <button class="button my-3">Upload Profile</button>
+  </form>
+</section>
+<%- include("../includes/Footer")%>

@@ -2,7 +2,11 @@
 <section class="verAlign">
     <div class="flex flex-col items-center w-[100%]">
         <div class="flex flex-col items-center">
-          <i><i class="fa-solid fa-circle-user my-2"></i></i>
+           <% if(posts[0].userId.profile_imgUrl && posts[0].userId.isPremium) {%>
+                 <img class="w-24 rounded-md my-2" src="<%='/' + posts[0].userId.profile_imgUrl%>" alt="<%=posts[0].userId.username%>">
+              <% } else {%>
+                 <i><i class="fa-solid fa-circle-user ppuserIcon my-2"></i></i>
+              <% } %>
           <h1 class="text-xl md:text-2xl font-bold"><%=userEmail%></h1>
         <%if(posts[0].userId.username) { %>
               <div class="flex items-center gap-2">
@@ -16,13 +20,9 @@
             <%}%>
       </div>
       <div class="flex w-[100%] justify-around flex-wrap">
-      <% if(posts.length === 0 && isLogin) {%>
-        <div><span class="font-bold">Nothing Here!!</span> Click add Post button above to create a new Post</div>
-      <%}%> 
       <% for (let post of posts) {%>
-      <div class="flex flex-col items-start w-[80%] sm:w-[400px] border-blue-400 border-2 shadow-xl rounded-md bg-slate-100 mx-3 my-2 p-5 md:h-[21rem] h-[22rem] ">
+      <div class="flex flex-col items-start w-[80%] sm:w-[400px] border-blue-400 border-2 shadow-xl rounded-md bg-slate-100 mx-3 my-2 p-5 md:h-[20rem] h-[21rem] ">
         <div class="mt-[-0.4rem]"><%=post.title.substr(0,40)%></div>
-         <p class="my-1">Posted by <span class="text-blue-500 font-medium"><%=post.userId.email%></span></p>
         <img class="my-1 rounded-md w-full h-36 object-cover" src="<%= '/' + post.imgUrl %>" alt="<%=post.title%>">
         <p class="w-full break-words"><%=post.description.substr(0,80)%> ...</p>
         <a class="mt-[0.4rem] button" href="../post/<%= post._id %>"><button>See More</button></a>

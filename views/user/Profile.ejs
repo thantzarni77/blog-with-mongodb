@@ -1,29 +1,35 @@
 <%- include("../includes/Header")%>
 <section class="verAlign">
-    <div class="flex flex-col items-center w-[100%]">
-      <div class="flex items-center p-8 justify-between w-full">
-        <div class="flex flex-col justify-center items-center">
-          <i class="fa-solid fa-circle-user"></i>
-          <h1 class="text-2xl my-2 font-bold"><%=userEmail%></h1>
-          <%if(posts[0].userId.username) { %>
-            <div class="flex items-center gap-2">
+  <% if(posts.length > 0) {%>
+      <div class="flex flex-col items-center w-[100%]">
+        <div class="flex items-center p-8 justify-between w-full">
+          <div class="flex flex-col justify-center items-start">
+            <% if(posts[0].userId.profile_imgUrl && posts[0].userId.isPremium) {%>
+              <img class="w-24 h-24  object-cover rounded-lg mt-2" src="<%='/' + posts[0].userId.profile_imgUrl%>" alt="<%=posts[0].userId.username%>" />
+            <% } else { %>
+              <i class="fa-solid fa-circle-user"></i>
+            <%}%>
+            <h1 class="text-xl md:text-2xl w-[120px] md:w-full  break-words my-2 font-bold"><%=userEmail%></h1>
+            <%if(posts[0].userId.username) { %>
+              <div class="flex items-center gap-2">
+                <h1><%=posts[0].userId.username%></h1>
+                <% if(posts[0].userId.isPremium) {%>
+                  <i class="fa-solid fa-star-half-stroke animate__animated animate__rubberBand animate__infinite"></i>
+                <%}%>
+              </div>
+            <%}else {%>
               <h1><%=posts[0].userId.username%></h1>
-              <% if(posts[0].userId.isPremium) {%>
-                <i class="fa-solid fa-star-half-stroke animate__animated animate__rubberBand animate__infinite"></i>
-              <%}%>
-            </div>
-          <%}else {%>
-            <h1><%=posts[0].userId.username%></h1>
-          <%}%>
-        </div>
-        <div class="flex flex-col">
-          <button class="button mb-4"><a href="/admin/username">Set Username</a></button>
-          <%if(posts[0].userId.isPremium) {%>
-            <button class="button"><a href="/admin/premium-details">Premium Status</a></button>
-          <% } else {%>
-            <button class="button"><a href="/admin/premium">Buy Premium</a></button>
-          <%}%>
-        </div>
+            <%}%>
+          </div>
+          <div class="flex flex-col">
+            <button class="button mb-2"><a href="/admin/username">Set Username</a></button>
+            <%if(posts[0].userId.isPremium) {%>
+              <button class="button mb-2"><a href="/admin/profile-img">Upload Profile</a></button>
+              <button class="button"><a href="/admin/premium-details">Premium Status</a></button>
+            <% } else {%>
+              <button class="button"><a href="/admin/premium">Buy Premium</a></button>
+            <%}%>
+          </div>
       </div> 
     <div class="flex w-[100%] justify-around flex-wrap">
     <% for (let post of posts) {%>
@@ -46,5 +52,41 @@
         <a href="/admin/profile?page=<%=previousPage%>"><button class="button my-2">Previous Page <%=previousPage%> <i class="fa-solid fa-arrow-left"></i></button></a>
         <%}%>
     </div>
+  <%} else {%>
+     <div class="flex flex-col items-center w-[100%]">
+        <div class="flex items-center p-8 justify-between w-full">
+          <div class="flex flex-col justify-center items-start">
+            <% if(userData.profile_imgUrl && userData.isPremium) {%>
+              <img class="w-24 h-24  object-cover rounded-lg mt-2" src="<%='/' + posts[0].userId.profile_imgUrl%>" alt="<%=posts[0].userId.username%>" />
+            <% } else { %>
+              <i class="fa-solid fa-circle-user"></i>
+            <%}%>
+            <h1 class="text-[18px] md:text-2xl w-[120px] md:w-full  break-words my-2 font-bold"><%=userEmail%></h1>
+            <%if(userData.username) { %>
+              <div class="flex items-center gap-2">
+                <h1><%=userData.username%></h1>
+                <% if(userData.isPremium) {%>
+                  <i class="fa-solid fa-star-half-stroke animate__animated animate__rubberBand animate__infinite"></i>
+                <%}%>
+              </div>
+            <%}else {%>
+              <h1><%=userData.username%></h1>
+            <%}%>
+          </div>
+          <div class="flex flex-col">
+            <button class="button mb-2"><a href="/admin/username">Set Username</a></button>
+            <%if(userData.isPremium) {%>
+              <button class="button mb-2"><a href="/admin/profile-img">Upload Profile</a></button>
+              <button class="button"><a href="/admin/premium-details">Premium Status</a></button>
+            <% } else {%>
+              <button class="button"><a href="/admin/premium">Buy Premium</a></button>
+            <%}%>
+          </div>
+      </div> 
+    <div class="flex flex-col items-center">
+      <h1 class="my-2 w-[90%] md:w-full text-xl md:text-2xl">No post created. Click button below to create one</h1>
+    <a href="/admin/create-post"><button class="button">Go to create post</button></a>
+    </div>
+  <%}%>
 </section>
 <%- include("../includes/Footer")%>

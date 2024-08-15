@@ -5,6 +5,8 @@ const { body } = require("express-validator");
 const PostController = require("../controllers/post");
 const UserController = require("../controllers/user");
 
+const { isPremium } = require("../middleware/isPremium");
+
 router.get("/create-post", PostController.renderCreatePage);
 
 router.post(
@@ -52,5 +54,9 @@ router.get("/subscription_success", UserController.getSuccessPage);
 router.get("/premium-details", UserController.getPremiumDetails);
 
 router.get("/subscription_cancel", UserController.renderPremiumPage);
+
+router.get("/profile-img", isPremium, UserController.getProfileUploadPage);
+
+router.post("/setprofile", isPremium, UserController.setProfileImage);
 
 module.exports = router;

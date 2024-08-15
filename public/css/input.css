@@ -35,8 +35,12 @@
     @apply text-center  p-2 border-2 rounded-sm my-4 border-red-300 bg-red-100 text-red-600;
   }
 
-  .hmUsrIcon{
-    @apply text-2xl !important
+  .hmUsrIcon {
+    @apply text-[35px] my-2 !important;
+  }
+
+  .ppuserIcon {
+    @apply text-[66px] !important;
   }
 }
 

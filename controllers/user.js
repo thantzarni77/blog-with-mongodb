@@ -10,6 +10,15 @@ let POST_PER_PAGE = 6;
 exports.getProfilePage = (req, res, next) => {
   const pageNumber = +req.query.page || 1;
   let totalPostsCount;
+  let userDataGet;
+
+  User.findById(req.user._id)
+    .then((user) => {
+      userDataGet = user;
+    })
+    .catch((err) => {
+      console.log(err);
+    });
 
   Post.find({ userId: req.user._id })
     .countDocuments()
@@ -19,25 +28,26 @@ exports.getProfilePage = (req, res, next) => {
       return Post.find({ userId: req.user._id })
         .skip((pageNumber - 1) * POST_PER_PAGE)
         .limit(POST_PER_PAGE)
-        .populate("userId", "email username isPremium")
+        .populate("userId", "email username isPremium profile_imgUrl")
         .sort({ createdAt: -1 });
     })
     .then((posts) => {
-      if (posts.length > 0) {
+      if (!posts.length && pageNumber > 1) {
+        return res.status(500).render("error/500", {
+          title: "Something went wrong",
+          message: "No Post Avaliable in this page query",
+        });
+      } else {
         return res.render("user/Profile", {
           title: req.session.userData.email,
           posts,
+          userData: userDataGet,
           userEmail: req.user ? req.user.email : "",
           currentPage: pageNumber,
           hasNextPage: POST_PER_PAGE * pageNumber < totalPostsCount,
           hasPreviousPage: pageNumber > 1,
           nextPage: pageNumber + 1,
           previousPage: pageNumber - 1,
-        });
-      } else {
-        return res.status(500).render("error/500", {
-          title: "Something went wrong",
-          message: "No Post Avaliable in this page query",
         });
       }
     })
@@ -61,7 +71,7 @@ exports.getPublicProfilePage = (req, res, next) => {
       return Post.find({ userId: userId })
         .skip((pageNumber - 1) * POST_PER_PAGE)
         .limit(POST_PER_PAGE)
-        .populate("userId", "email isPremium username")
+        .populate("userId", "email isPremium username profile_imgUrl")
         .sort({ createdAt: -1 });
     })
     .then((posts) => {
@@ -153,7 +163,7 @@ exports.renderPremiumPage = (req, res, next) => {
 
 exports.getSuccessPage = (req, res) => {
   const session_id = req.query.session_id;
-  if (!session_id || !session_id.includes("  cs_test_")) {
+  if (!session_id || !session_id.includes("cs_test_")) {
     return res.redirect("/admin/profile");
   }
   User.findById(req.user._id)
@@ -189,6 +199,42 @@ exports.getPremiumDetails = (req, res, next) => {
         invoice_id: stripeSession.invoice,
         status: stripeSession.payment_status,
       });
+    })
+    .catch((err) => {
+      console.log(err);
+      const error = new Error("Something went wrong");
+      return next(error);
+    });
+};
+
+exports.getProfileUploadPage = (req, res) => {
+  res.render("user/Profile-upload", { title: "Profile Upload", error: "" });
+};
+
+exports.setProfileImage = (req, res, next) => {
+  const photo = req.file;
+  const errors = validationResult(req);
+
+  if (photo === undefined) {
+    return res.status(422).render("user/Profile-upload", {
+      title: "Profile Upload",
+      error: "Image type must be jpg/jpeg and png only",
+    });
+  }
+  if (!errors.isEmpty()) {
+    return res.status(422).render("user/Profile-upload", {
+      title: "Profile Upload",
+      error: errors.array()[0].msg,
+    });
+  }
+
+  User.findById(req.user._id)
+    .then((user) => {
+      user.profile_imgUrl = photo.path;
+      return user.save();
+    })
+    .then(() => {
+      res.redirect("/admin/profile");
     })
     .catch((err) => {
       console.log(err);
