@@ -11,15 +11,31 @@
       <div><span class="font-bold">Nothing Here!!</span> Click add Post button above to create a new Post</div>
     <%}%> 
     <% for (let post of posts) {%>
-      <div class="flex flex-col items-start w-[80%] sm:w-[400px] border-blue-400 border-2 shadow-xl rounded-md bg-slate-100 mx-3 my-2 p-5 md:h-[21rem] h-[22rem] ">
+      <div class="flex flex-col items-start w-[80%] sm:w-[400px] border-blue-400 border-2 shadow-xl rounded-md bg-slate-100 mx-3 my-2 p-5 md:h-[21rem] h-[23rem] ">
         <div class="mt-[-0.4rem]"><%=post.title.substr(0,40)%></div>
-        <% if(post.userId._id?.toString() === userId?.toString()) {%>
-          <p class="my-1">Posted by <span class="text-blue-500 font-medium"><a href="/admin/profile"><%=post.userId.email%></a></span></p>
-        <%} else { %>
-          <p class="my-1">Posted by <span class="text-blue-500 font-medium"><a href="/profile/<%=post.userId._id%>"><%=post.userId.email%></a></span></p>
-        <%}%>
+        <div class="flex gap-2 items-center">
+          <% if(post.userId._id?.toString() === userId?.toString()) {%>
+            <div><a href="/admin/profile"><i class="fa-solid fa-circle-user hmUsrIcon"></i></a></div>
+          <%} else { %>
+            <div><a href="/profile/<%=post.userId._id%>"><i class="fa-solid fa-circle-user hmUsrIcon"></i></a></div>
+          <%}%>
+          <% if(post.userId.isPremium) {%>
+            <div class="md:flex md:gap-2">
+                <p class="my-1 text-blue-500 font-medium"><%=post.userId.email%></p>
+                <div class="flex items-center gap-2">
+                  <p class="text-gray-700 text-sm"><%=post.userId.username%></p>
+                  <i class="fa-solid fa-star-half-stroke animate__animated animate__rubberBand animate__infinite"></i>
+              </div>
+            </div>
+          <%} else {%>
+            <div class="flex items-center gap-2">
+              <p class="my-1 text-blue-500 font-medium"><%=post.userId.email%></p>
+              <p><%=post.userId.username%></p>
+            </div>
+          <%}%>
+        </div>
         <img class="my-1 rounded-md w-full h-36 object-cover" src="<%=post.imgUrl%>" alt="<%=post.title%>">
-        <p class="w-full break-words"><%=post.description.substr(0,80)%> ...</p>
+        <p class="w-full break-words text-sm md:text-base"><%=post.description.substr(0,80)%> ...</p>
         <a class="mt-[0.4rem] button" href="post/<%= post._id %>"><button>See More</button></a>
         </div>
     <%}%>

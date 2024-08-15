@@ -4,7 +4,7 @@
       <div class="flex items-center p-8 justify-between w-full">
         <div class="flex flex-col justify-center items-center">
           <i class="fa-solid fa-circle-user"></i>
-          <h1 class="text-2xl mb-3 font-bold"><%=userEmail%></h1>
+          <h1 class="text-2xl my-2 font-bold"><%=userEmail%></h1>
           <%if(posts[0].userId.username) { %>
             <div class="flex items-center gap-2">
               <h1><%=posts[0].userId.username%></h1>
@@ -18,14 +18,17 @@
         </div>
         <div class="flex flex-col">
           <button class="button mb-4"><a href="/admin/username">Set Username</a></button>
-          <button class="button"><a href="/admin/premium">Buy Premium</a></button>
+          <%if(posts[0].userId.isPremium) {%>
+            <button class="button"><a href="/admin/premium-details">Premium Status</a></button>
+          <% } else {%>
+            <button class="button"><a href="/admin/premium">Buy Premium</a></button>
+          <%}%>
         </div>
       </div> 
     <div class="flex w-[100%] justify-around flex-wrap">
     <% for (let post of posts) {%>
-      <div class="flex flex-col items-start w-[80%] sm:w-[400px] border-blue-400 border-2 shadow-xl rounded-md bg-slate-100 mx-3 my-2 p-5 md:h-[21rem] h-[22rem] ">
+      <div class="flex flex-col items-start w-[80%] sm:w-[400px] border-blue-400 border-2 shadow-xl rounded-md bg-slate-100 mx-3 my-2 p-5 md:h-[19rem] h-[20rem] ">
         <div class="mt-[-0.4rem]"><%=post.title.substr(0,40)%></div>
-         <p class="my-1">Posted by <span class="text-blue-500 font-medium"><%=post.userId.email%></span></p>
         <img class="my-1 rounded-md w-full h-36 object-cover" src="<%= '/' + post.imgUrl %>" alt="<%=post.title%>">
         <p class="w-full break-words"><%=post.description.substr(0,80)%> ...</p>
         <a class="mt-[0.4rem] button" href="../post/<%= post._id %>"><button>See More</button></a>

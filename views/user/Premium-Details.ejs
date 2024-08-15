@@ -1,0 +1,16 @@
+<%- include("../includes/Header")%>
+<section class="verAlign h-full">
+    <div>
+        <h1 class="text-3xl font-bold my-2">Premium Details</h1>
+        <div class="flex flex-col gap-3">
+            <p>Customer id : <span class="font-bold"><%=customer_id%></span></p>
+            <p>Country : <span class="font-bold"><%=country%></span></p>
+            <p>Postal Code : <span class="font-bold"><%=postal_code%></span></p>
+            <p>Email : <span class="font-bold"><%=email%></span></p>
+            <p>Name : <span class="font-bold"><%=name%></span></p>
+            <p>Invoice ID : <span class="font-bold"><%=invoice_id%></span></p>
+            <p>Status : <span class="bg-green-500 p-1 font-bold "><%=status%></span></p>
+        </div>
+    </div>
+</section>
+<%- include("../includes/Footer")%>

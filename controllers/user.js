@@ -153,7 +153,7 @@ exports.renderPremiumPage = (req, res, next) => {
 
 exports.getSuccessPage = (req, res) => {
   const session_id = req.query.session_id;
-  if (!session_id) {
+  if (!session_id || !session_id.includes("  cs_test_")) {
     return res.redirect("/admin/profile");
   }
   User.findById(req.user._id)
@@ -163,8 +163,31 @@ exports.getSuccessPage = (req, res) => {
       return user.save().then((_) => {
         res.render("user/SubSuccess", {
           title: "Subscription Success",
-          subscription_id: session_id,
         });
+      });
+    })
+    .catch((err) => {
+      console.log(err);
+      const error = new Error("Something went wrong");
+      return next(error);
+    });
+};
+
+exports.getPremiumDetails = (req, res, next) => {
+  User.findById(req.user._id)
+    .then((user) => {
+      return stripe.checkout.sessions.retrieve(user.payment_session_key);
+    })
+    .then((stripeSession) => {
+      res.render("user/Premium-Details", {
+        title: "Premium Status",
+        customer_id: stripeSession.customer,
+        country: stripeSession.customer_details.address.country,
+        postal_code: stripeSession.customer_details.address.postal_code,
+        email: stripeSession.customer_details.email,
+        name: stripeSession.customer_details.name,
+        invoice_id: stripeSession.invoice,
+        status: stripeSession.payment_status,
       });
     })
     .catch((err) => {
